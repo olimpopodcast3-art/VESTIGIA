@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "vestigia:aztec_pyramid",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 67,
+    "separation": 49,
+    "salt": 1911636416
+  }
+}

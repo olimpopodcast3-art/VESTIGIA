@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "abb",
+    "bb ",
+    "b  "
+  ],
+  "key": {
+    "a": "minecraft:lead",
+    "b": "#minecraft:planks"
+  },
+  "result": {
+    "id": "vestigia:boomerang",
+    "count": 1
+  }
+}

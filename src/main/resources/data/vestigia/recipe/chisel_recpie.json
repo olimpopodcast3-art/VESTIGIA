@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a",
+    "b"
+  ],
+  "key": {
+    "a": "vestigia:bronze",
+    "b": "minecraft:stick"
+  },
+  "result": {
+    "id": "vestigia:chisel",
+    "count": 1
+  }
+}

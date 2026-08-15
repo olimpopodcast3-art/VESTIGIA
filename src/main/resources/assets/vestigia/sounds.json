@@ -1,0 +1,26 @@
+{
+  "bell_bong": {
+    "sounds": [
+      {
+        "name": "vestigia:undertakers-bell_2uwfcie",
+        "stream": false
+      }
+    ]
+  },
+  "power_up": {
+    "sounds": [
+      {
+        "name": "vestigia:power_up",
+        "stream": false
+      }
+    ]
+  },
+  "incursion": {
+    "sounds": [
+      {
+        "name": "vestigia:incursion",
+        "stream": false
+      }
+    ]
+  }
+}

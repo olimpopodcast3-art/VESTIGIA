@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "vestigia:archeology_house_2",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 80,
+    "separation": 56,
+    "salt": 170796851
+  }
+}

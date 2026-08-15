@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " a ",
+    "aaa",
+    " a "
+  ],
+  "key": {
+    "a": "vestigia:ender_splinter"
+  },
+  "result": {
+    "id": "minecraft:ender_pearl",
+    "count": 1
+  }
+}

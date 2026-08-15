@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "vestigia:oxidized_bronze_splinter",
+          "weight": 30
+        },
+        {
+          "type": "minecraft:item",
+          "name": "vestigia:bronze_sediment",
+          "weight": 70
+        },
+	{
+          "type": "minecraft:item",
+          "name": "vestigia:obsidian_splinter",
+          "weight": 10
+        },
+	{
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 20
+        },
+	{
+	  "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "weight": 10
+	}
+      ]
+    }
+  ]
+}

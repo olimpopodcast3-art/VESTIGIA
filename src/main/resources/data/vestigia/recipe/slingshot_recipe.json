@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "cdc",
+    " a "
+  ],
+  "key": {
+    "a": "#minecraft:planks",
+    "b": "minecraft:lead",
+    "c": "vestigia:ruby",
+    "d": "vestigia:mythic_splinter"
+  },
+  "result": {
+    "id": "vestigia:slingshot",
+    "count": 1
+  }
+}

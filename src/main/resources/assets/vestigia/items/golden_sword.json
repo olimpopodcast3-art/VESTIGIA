@@ -1,0 +1,58 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "vestigia:gs_charged",
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "vestigia:item/golden_sword_charge_8"
+    },
+    "on_false": {
+      "type": "minecraft:condition",
+      "property": "minecraft:using_item",
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "vestigia:item/golden_sword"
+      },
+      "on_true": {
+        "type": "minecraft:condition",
+        "property": "vestigia:gs_seal2",
+        "on_false": {
+          "type": "minecraft:range_dispatch",
+          "property": "minecraft:use_duration",
+          "scale": 0.01739130,
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "vestigia:item/golden_sword_charge_1"
+          },
+          "entries": [
+            { "threshold": 1.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_2" } },
+            { "threshold": 2.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_3" } },
+            { "threshold": 3.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_4" } },
+            { "threshold": 4.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_5" } },
+            { "threshold": 5.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_6" } },
+            { "threshold": 6.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_7" } },
+            { "threshold": 7.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_8" } }
+          ]
+        },
+        "on_true": {
+          "type": "minecraft:range_dispatch",
+          "property": "minecraft:use_duration",
+          "scale": 0.02898551,
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "vestigia:item/golden_sword_charge_1"
+          },
+          "entries": [
+            { "threshold": 1.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_2" } },
+            { "threshold": 2.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_3" } },
+            { "threshold": 3.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_4" } },
+            { "threshold": 4.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_5" } },
+            { "threshold": 5.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_6" } },
+            { "threshold": 6.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_7" } },
+            { "threshold": 7.0, "model": { "type": "minecraft:model", "model": "vestigia:item/golden_sword_charge_8" } }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": { "layer0": "vestigia:item/golden_sword_charge_5" }
+}

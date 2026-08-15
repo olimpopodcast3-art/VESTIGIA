@@ -1,0 +1,8 @@
+{
+  "parent": "vestigia:custom/reverberation_anvil",
+  "textures": {
+    "all": "vestigia:block/anvil",
+    "particle": "vestigia:block/anvil",
+    "0": "vestigia:block/anvil"
+  }
+}

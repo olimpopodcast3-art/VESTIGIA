@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "vestigia:obsidian_splinter",
+    "vestigia:obsidian_splinter",
+    "vestigia:obsidian_splinter",
+    "vestigia:obsidian_splinter"
+  ],
+  "result": {
+    "id": "minecraft:obsidian",
+    "count": 1
+  }
+}

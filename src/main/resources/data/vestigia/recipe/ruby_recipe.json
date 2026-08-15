@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "vestigia:ruby_splinter",
+  "result": {
+    "id": "vestigia:ruby",
+    "count": 1
+  }
+}

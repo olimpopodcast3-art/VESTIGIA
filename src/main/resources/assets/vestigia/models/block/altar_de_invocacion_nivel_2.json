@@ -1,0 +1,8 @@
+{
+  "parent": "vestigia:custom/alatardeincursion",
+  "textures": {
+    "all": "vestigia:block/altarincursion",
+    "particle": "vestigia:block/altarincursion",
+    "0": "vestigia:block/altarincursion"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "vestigia:hooked",
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "vestigia:item/thrown_hook"
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "vestigia:item/hook"
+    }
+  }
+}

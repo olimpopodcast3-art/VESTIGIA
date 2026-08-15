@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "vestigia:blocks/altar_de_invocacion_nivel_2",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "vestigia:altar_de_invocacion_nivel_2"
+        }
+      ]
+    }
+  ]
+}

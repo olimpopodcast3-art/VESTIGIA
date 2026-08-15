@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "vestigia:block/altardown",
+    "up": "vestigia:block/altarup",
+    "north": "vestigia:block/altarside3",
+    "east": "vestigia:block/altarside",
+    "south": "vestigia:block/altarside",
+    "west": "vestigia:block/altarside",
+    "particle": "vestigia:block/altardown"
+  }
+}

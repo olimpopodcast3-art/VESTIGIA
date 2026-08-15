@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "vestigia:flint_splinter",
+    "vestigia:flint_splinter",
+    "vestigia:flint_splinter",
+    "vestigia:flint_splinter"
+  ],
+  "result": {
+    "id": "minecraft:flint",
+    "count": 1
+  }
+}

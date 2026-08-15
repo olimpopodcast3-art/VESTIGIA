@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "size": 4,
+  "operation": "SET",
+  "render_toggle": true,
+  "icon": "curios:slot/emblems"
+}

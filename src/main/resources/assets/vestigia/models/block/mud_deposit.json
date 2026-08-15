@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "vestigia:block/muddeposit1",
+    "up": "vestigia:block/muddeposit1",
+    "north": "vestigia:block/muddeposit1",
+    "east": "vestigia:block/muddeposit1",
+    "south": "vestigia:block/muddeposit1",
+    "west": "vestigia:block/muddeposit1",
+    "particle": "vestigia:block/muddeposit1"
+  }
+}

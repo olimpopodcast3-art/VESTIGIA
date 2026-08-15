@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "vestigia:gold_splinter",
+    "vestigia:gold_splinter",
+    "vestigia:gold_splinter",
+    "vestigia:gold_splinter"
+  ],
+  "result": {
+    "id": "minecraft:gold_ingot",
+    "count": 1
+  }
+}

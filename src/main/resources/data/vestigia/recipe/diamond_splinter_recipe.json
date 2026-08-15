@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "vestigia:diamond_splinter",
+    "vestigia:diamond_splinter",
+    "vestigia:diamond_splinter",
+    "vestigia:diamond_splinter"
+  ],
+  "result": {
+    "id": "minecraft:diamond",
+    "count": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "vestigia:custom/sieve",
+  "textures": {
+    "all": "vestigia:block/sieve",
+    "particle": "minecraft:block/oak_planks",
+    "0": "vestigia:block/sieve"
+  }
+}

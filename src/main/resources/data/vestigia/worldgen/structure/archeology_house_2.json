@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:jigsaw",
+  "start_pool": "vestigia:archeology_house_2",
+  "size": 1,
+  "max_distance_from_center": 64,
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "start_height": {
+    "absolute": -3
+  },
+  "project_start_to_heightmap": "WORLD_SURFACE",
+  "biomes": [
+    "dark_forest",
+    "old_growth_spruce_taiga",
+    "swamp",
+    "windswept_forest",
+    "bamboo_jungle",
+    "jungle",
+    "birch_forest",
+    "forest",
+    "taiga"
+  ],
+  "use_expansion_hack": false
+}

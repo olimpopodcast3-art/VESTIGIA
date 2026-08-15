@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "vestigia:iron_shard",
+    "vestigia:iron_shard",
+    "vestigia:iron_shard",
+    "vestigia:iron_shard"
+  ],
+  "result": {
+    "id": "minecraft:iron_ingot",
+    "count": 1
+  }
+}

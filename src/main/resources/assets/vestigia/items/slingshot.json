@@ -1,0 +1,35 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:using_item",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "vestigia:item/slingcharge0"
+    },
+    "on_true": {
+      "type": "minecraft:range_dispatch",
+      "property": "minecraft:use_duration",
+      "scale": 0.05,
+      "fallback": {
+        "type": "minecraft:model",
+        "model": "vestigia:item/slingcharge1"
+      },
+      "entries": [
+        {
+          "threshold": 0.35,
+          "model": {
+            "type": "minecraft:model",
+            "model": "vestigia:item/slingcharge2"
+          }
+        },
+        {
+          "threshold": 0.70,
+          "model": {
+            "type": "minecraft:model",
+            "model": "vestigia:item/slingcharge3"
+          }
+        }
+      ]
+    }
+  }
+}

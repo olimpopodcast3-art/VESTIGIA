@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "vestigia:coal_splinter",
+    "vestigia:coal_splinter",
+    "vestigia:coal_splinter",
+    "vestigia:coal_splinter"
+  ],
+  "result": {
+    "id": "minecraft:coal",
+    "count": 1
+  }
+}

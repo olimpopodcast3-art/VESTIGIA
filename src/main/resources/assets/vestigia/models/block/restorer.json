@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "vestigia:block/restorer_down",
+    "up": "vestigia:block/restorer_top",
+    "north": "vestigia:block/restorer_side",
+    "east": "vestigia:block/restorer",
+    "south": "vestigia:block/restorer",
+    "west": "vestigia:block/restorer",
+    "particle": "vestigia:block/restorer_down"
+  }
+}
