@@ -121,15 +121,41 @@ public class VestigiaSellos {
 		return true;
 	}
 
-	private static ItemStack compute(ItemStack weapon, ItemStack sealStack) {
-		if (weapon.isEmpty() || sealStack.isEmpty() || weapon.getCount() != 1 || !isPortadorWeapon(weapon))
+	private static ItemStack compute(ItemStack a, ItemStack b) {
+		if (a.isEmpty() || b.isEmpty())
 			return ItemStack.EMPTY;
-		int tier = sealTier(sealStack);
-		if (tier <= 0 || tier <= seal(weapon))
-			return ItemStack.EMPTY;
-		ItemStack result = weapon.copy();
-		setSeal(result, tier);
-		return result;
+		if (a.getCount() == 1 && isPortadorWeapon(a)) {
+			int tier = sealTier(b);
+			if (tier > 0 && tier > seal(a)) {
+				ItemStack result = a.copy();
+				setSeal(result, tier);
+				return result;
+			}
+		}
+		String out = sealComboResult(pathOf(a), pathOf(b));
+		if (out != null) {
+			Item it = BuiltInRegistries.ITEM.getValue(Identifier.parse("vestigia:" + out));
+			if (it != null)
+				return new ItemStack(it);
+		}
+		return ItemStack.EMPTY;
+	}
+
+	private static String pathOf(ItemStack s) {
+		Identifier id = BuiltInRegistries.ITEM.getKey(s.getItem());
+		return id == null ? "" : id.getPath();
+	}
+
+	private static String sealComboResult(String a, String b) {
+		if (a.equals("seal_1") && b.equals("seal_1"))
+			return "seal_2_off";
+		if ((a.equals("seal_1") && b.equals("seal_2")) || (a.equals("seal_2") && b.equals("seal_1")))
+			return "seal_3_off";
+		if (a.equals("seal_3") && b.equals("seal_3"))
+			return "seal_z_off";
+		if (a.equals("seal_z") && b.equals("seal_z"))
+			return "stellar_seal_off";
+		return null;
 	}
 
 	public static boolean wouldApply(ItemStack weapon, ItemStack sealStack) {

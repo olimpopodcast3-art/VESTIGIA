@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    " ba",
+    " b "
+  ],
+  "key": {
+    "a": "vestigia:bronze",
+    "b": "minecraft:stick"
+  },
+  "result": {
+    "id": "vestigia:bronze_voltive_axe",
+    "count": 1
+  }
+}

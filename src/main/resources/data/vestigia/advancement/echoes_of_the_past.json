@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "vestigia:echo"
+    },
+    "title": {
+      "translate": "advancements.echoes_of_the_past.title"
+    },
+    "description": {
+      "translate": "advancements.echoes_of_the_past.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "echoes_of_the_past_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "vestigia:echo",
+            "count": {
+              "min": 1,
+              "max": 64
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "vestigia:broken_souls"
+}

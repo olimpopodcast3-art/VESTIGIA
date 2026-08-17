@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aaa"
+  ],
+  "key": {
+    "a": "minecraft:black_wool",
+    "b": "vestigia:ruby_splinter",
+    "c": "vestigia:gold_splinter",
+    "d": "minecraft:book"
+  },
+  "result": {
+    "id": "vestigia:vestigia_book",
+    "count": 1
+  }
+}

@@ -92,7 +92,7 @@ public class MexicaEntity extends Monster {
 		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.4);
 		builder = builder.add(Attributes.MAX_HEALTH, 40);
 		builder = builder.add(Attributes.ARMOR, 0.9);
-		builder = builder.add(Attributes.ATTACK_DAMAGE, 12);
+		builder = builder.add(Attributes.ATTACK_DAMAGE, 7);
 		builder = builder.add(Attributes.FOLLOW_RANGE, 16);
 		builder = builder.add(Attributes.STEP_HEIGHT, 0.8);
 		return builder;

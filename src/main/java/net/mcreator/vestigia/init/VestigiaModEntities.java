@@ -43,6 +43,20 @@ public class VestigiaModEntities {
 			EntityType.Builder.<MexicaEntity>of(MexicaEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
 
 					.ridingOffset(-0.6f).notInPeaceful().sized(0.5f, 2f));
+	public static final DeferredHolder<EntityType<?>, EntityType<CaveManEntity>> CAVE_MAN = register("cave_man",
+			EntityType.Builder.<CaveManEntity>of(CaveManEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
+
+					.ridingOffset(-0.6f).notInPeaceful().sized(0.6f, 1.8f));
+	public static final DeferredHolder<EntityType<?>, EntityType<MummyEntity>> MUMMY = register("mummy",
+			EntityType.Builder.<MummyEntity>of(MummyEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
+
+					.ridingOffset(-0.6f).notInPeaceful().sized(0.6f, 1.8f));
+	public static final DeferredHolder<EntityType<?>, EntityType<PharaohEntity>> PHARAOH = register("pharaoh",
+			EntityType.Builder.<PharaohEntity>of(PharaohEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).fireImmune().ridingOffset(-0.6f).notInPeaceful().sized(0.6f, 1.8f));
+	public static final DeferredHolder<EntityType<?>, EntityType<RomanEntity>> ROMAN = register("roman",
+			EntityType.Builder.<RomanEntity>of(RomanEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
+
+					.ridingOffset(-0.6f).notInPeaceful().sized(0.6f, 1.8f));
 
 	// Start of user code block custom entities
 	// End of user code block custom entities
@@ -58,6 +72,10 @@ public class VestigiaModEntities {
 		GoldenKnightEntity.init(event);
 		TlalocEntity.init(event);
 		MexicaEntity.init(event);
+		CaveManEntity.init(event);
+		MummyEntity.init(event);
+		PharaohEntity.init(event);
+		RomanEntity.init(event);
 	}
 
 	@SubscribeEvent
@@ -68,5 +86,9 @@ public class VestigiaModEntities {
 		event.put(GOLDEN_KNIGHT.get(), GoldenKnightEntity.createAttributes().build());
 		event.put(TLALOC.get(), TlalocEntity.createAttributes().build());
 		event.put(MEXICA.get(), MexicaEntity.createAttributes().build());
+		event.put(CAVE_MAN.get(), CaveManEntity.createAttributes().build());
+		event.put(MUMMY.get(), MummyEntity.createAttributes().build());
+		event.put(PHARAOH.get(), PharaohEntity.createAttributes().build());
+		event.put(ROMAN.get(), RomanEntity.createAttributes().build());
 	}
 }

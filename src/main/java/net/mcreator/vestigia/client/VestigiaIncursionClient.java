@@ -19,6 +19,27 @@ public class VestigiaIncursionClient {
 	private static int enemies = 0;
 	private static boolean leaving = false;
 	private static long leaveDeadline = 0L;
+	private static long introEnd = 0L;
+	private static int introLevel = 0;
+
+	public static void onIntro(long end, int level) {
+		introEnd = end;
+		introLevel = level;
+	}
+
+	public static boolean introActive() {
+		Minecraft mc = Minecraft.getInstance();
+		return mc.level != null && mc.level.getGameTime() < introEnd && !isActive();
+	}
+
+	public static long introRemaining() {
+		Minecraft mc = Minecraft.getInstance();
+		return mc.level == null ? 0L : Math.max(0L, introEnd - mc.level.getGameTime());
+	}
+
+	public static int introLevel() {
+		return introLevel;
+	}
 
 	public static void onState(boolean a, long start, long end, int ph, int en) {
 		boolean was = active;
@@ -116,8 +137,16 @@ public class VestigiaIncursionClient {
 
 	@SubscribeEvent
 	public static void onFog(ViewportEvent.ComputeFogColor event) {
-		if (!isActive())
+		if (!isActive()) {
+			if (introActive()) {
+				float ramp = 1.0F - introRemaining() / 100.0F;
+				float[] irgb = hsv((float) ((gameTime() % 80L) / 80.0), 0.85F * ramp, 0.5F + 0.4F * ramp);
+				event.setRed(irgb[0]);
+				event.setGreen(irgb[1]);
+				event.setBlue(irgb[2]);
+			}
 			return;
+		}
 		long period = breaking() ? (long) (40L - 26L * breakIntensity()) : 120L;
 		if (period < 8L)
 			period = 8L;

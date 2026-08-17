@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "vestigia:hook"
+    },
+    "title": {
+      "translate": "advancements.oh_hook_me.title"
+    },
+    "description": {
+      "translate": "advancements.oh_hook_me.descr"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "oh_hook_me_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "vestigia:hook",
+            "count": {
+              "min": 1,
+              "max": 64
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "vestigia:broken_souls"
+}

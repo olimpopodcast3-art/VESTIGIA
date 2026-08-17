@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    " c ",
+    " b "
+  ],
+  "key": {
+    "a": "minecraft:iron_block",
+    "b": "vestigia:aurora_splinter",
+    "c": "minecraft:anvil"
+  },
+  "result": {
+    "id": "vestigia:reverberation_anvil",
+    "count": 1
+  }
+}

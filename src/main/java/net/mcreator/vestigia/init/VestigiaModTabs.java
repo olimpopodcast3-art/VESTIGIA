@@ -115,5 +115,6 @@ public class VestigiaModTabs {
 				tabData.accept(VestigiaModItems.CORN.get());
 				tabData.accept(VestigiaModItems.ANCIENT_FUIR.get());
 				tabData.accept(VestigiaModItems.VESTIGIA_BOOK.get());
+				tabData.accept(VestigiaModItems.WOODEN_CLUB.get());
 			}).build());
 }

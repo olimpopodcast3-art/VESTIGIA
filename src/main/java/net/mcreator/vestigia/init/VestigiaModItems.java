@@ -126,6 +126,7 @@ public class VestigiaModItems {
 	public static final DeferredItem<Item> CORN;
 	public static final DeferredItem<Item> ANCIENT_FUIR;
 	public static final DeferredItem<Item> VESTIGIA_BOOK;
+	public static final DeferredItem<Item> WOODEN_CLUB;
 	static {
 		ASH_DEPOSIT = block(VestigiaModBlocks.ASH_DEPOSIT, new Item.Properties().rarity(Rarity.UNCOMMON));
 		BRONZE_DEPOSIT = block(VestigiaModBlocks.BRONZE_DEPOSIT, new Item.Properties().rarity(Rarity.RARE));
@@ -227,6 +228,7 @@ public class VestigiaModItems {
 		CORN = register("corn", CornItem::new);
 		ANCIENT_FUIR = register("ancient_fuir", AncientFuirItem::new);
 		VESTIGIA_BOOK = register("vestigia_book", VestigiaBookItem::new);
+		WOODEN_CLUB = register("wooden_club", WoodenClubItem::new);
 	}
 
 	// Start of user code block custom items

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "cbc",
+    "c c"
+  ],
+  "key": {
+    "a": "#minecraft:planks",
+    "b": "minecraft:string",
+    "c": "minecraft:stick"
+  },
+  "result": {
+    "id": "vestigia:sieve",
+    "count": 1
+  }
+}

@@ -20,5 +20,9 @@ public class VestigiaModEntityRenderers {
 		event.registerEntityRenderer(VestigiaModEntities.GOLDEN_KNIGHT.get(), GoldenKnightRenderer::new);
 		event.registerEntityRenderer(VestigiaModEntities.TLALOC.get(), TlalocRenderer::new);
 		event.registerEntityRenderer(VestigiaModEntities.MEXICA.get(), MexicaRenderer::new);
+		event.registerEntityRenderer(VestigiaModEntities.CAVE_MAN.get(), CaveManRenderer::new);
+		event.registerEntityRenderer(VestigiaModEntities.MUMMY.get(), MummyRenderer::new);
+		event.registerEntityRenderer(VestigiaModEntities.PHARAOH.get(), PharaohRenderer::new);
+		event.registerEntityRenderer(VestigiaModEntities.ROMAN.get(), RomanRenderer::new);
 	}
 }

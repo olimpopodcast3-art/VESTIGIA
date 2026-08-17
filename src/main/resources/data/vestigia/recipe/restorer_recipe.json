@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "bcb",
+    "bdb"
+  ],
+  "key": {
+    "a": "minecraft:white_wool",
+    "b": "#minecraft:planks",
+    "c": "minecraft:crafting_table",
+    "d": "vestigia:coldhorsehairbrush"
+  },
+  "result": {
+    "id": "vestigia:restorer",
+    "count": 1
+  }
+}

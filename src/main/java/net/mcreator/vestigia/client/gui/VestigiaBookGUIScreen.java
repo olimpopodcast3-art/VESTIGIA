@@ -38,10 +38,10 @@ public class VestigiaBookGUIScreen extends AbstractContainerScreen<VestigiaBookG
 	private static final int JADE = 0xFF3E8C5A;
 
 	private static final int BW = 288, BH = 198;
-	private static final int MAX_SPREAD = 21;
+	private static final int MAX_SPREAD = 22;
 	private static final float ANIM = 9.0F;
 	private static final int IDX_W = 120, IDX_H = 15, IDX_GAP = 19;
-	private static final int[] CHAPTERS = {1, 6, 8, 11, 15, 17, 20};
+	private static final int[] CHAPTERS = {1, 6, 8, 11, 15, 18, 21};
 
 	private static final String[][] RECIPES = {
 			{"vestigia:broken_metal_hoe", "vestigia:metal_splinter", "vestigia:metal_hoe"}, {"vestigia:broken_ash_pickaxe", "vestigia:ash_splinter", "vestigia:ash_pickaxe"},
@@ -164,7 +164,7 @@ public class VestigiaBookGUIScreen extends AbstractContainerScreen<VestigiaBookG
 				craftGrid(g, rx, by + 74, new ItemStack[]{st("minecraft:string"), st("minecraft:string"), st("minecraft:string"), ItemStack.EMPTY, st("minecraft:brush"), ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY}, st("vestigia:coldhorsehairbrush"));
 			}
 			case 2 -> {
-				page(g, lx, by, "The Sieve", new String[]{"Pour your Sediment", "into the Sieve and", "shake it through.", "", "It yields Splinters:", "shards of lost", "relics."});
+				page(g, lx, by, "The Sieve", new String[]{"Pour x3 Sediments", "into the Sieve and", "shake it through.", "", "It yields Splinters:", "shards of lost", "relics."});
 				iconArrow(g, lx + 6, by + BH - 40, st("vestigia:sieve"), st("vestigia:ash_splinter"), st("vestigia:gold_splinter"), st("vestigia:iron_shard"));
 				page(g, rx, by, "The Restorer", new String[]{"Relic + material +", "Chisel restores it.", "Craft a Chisel:"});
 				craftGrid(g, rx, by + 62, new ItemStack[]{ItemStack.EMPTY, st("vestigia:bronze"), ItemStack.EMPTY, ItemStack.EMPTY, st("minecraft:stick"), ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY}, st("vestigia:chisel"));
@@ -268,6 +268,23 @@ public class VestigiaBookGUIScreen extends AbstractContainerScreen<VestigiaBookG
 				iconsN(g, rx + 4, by + BH - 32, new ItemStack[]{st("vestigia:slingshot"), st("vestigia:golden_sword"), st("vestigia:phantom_spear"), st("vestigia:echo")});
 			}
 			case 16 -> {
+				txt(g, "Upgrade Seals", lx, by + 16, GOLD);
+				g.fill(lx, by + 26, lx + 108, by + 27, alpha(GOLD, 0.6F));
+				txt(g, "Combine two Seals in", lx, by + 32, INK);
+				txt(g, "the anvil to forge a", lx, by + 40, INK);
+				txt(g, "stronger 'Off' Seal:", lx, by + 48, INK);
+				anvilRow(g, lx, by + 66, st("vestigia:seal_1"), st("vestigia:seal_1"), st("vestigia:seal_2_off"), "= Seal 2 Off");
+				anvilRow(g, lx, by + 100, st("vestigia:seal_1"), st("vestigia:seal_2"), st("vestigia:seal_3_off"), "= Seal 3 Off");
+				txt(g, "Greater Fusions", rx, by + 16, GOLD);
+				g.fill(rx, by + 26, rx + 108, by + 27, alpha(GOLD, 0.6F));
+				txt(g, "The mightiest Seals:", rx, by + 32, INK);
+				anvilRow(g, rx, by + 50, st("vestigia:seal_3"), st("vestigia:seal_3"), st("vestigia:seal_z_off"), "= Seal Z Off");
+				anvilRow(g, rx, by + 84, st("vestigia:seal_z"), st("vestigia:seal_z"), st("vestigia:stellar_seal_off"), "= Stellar Off");
+				txt(g, "'Off' Seals arm the", rx, by + 120, INK_SOFT);
+				txt(g, "altars for a new", rx, by + 128, INK_SOFT);
+				txt(g, "Incursion.", rx, by + 136, INK_SOFT);
+			}
+			case 17 -> {
 				txt(g, "Sealing · Example", lx, by + 16, GOLD);
 				g.fill(lx, by + 26, lx + 108, by + 27, alpha(GOLD, 0.6F));
 				txt(g, "Feed the anvil a", lx, by + 32, INK);
@@ -279,27 +296,27 @@ public class VestigiaBookGUIScreen extends AbstractContainerScreen<VestigiaBookG
 				page(g, rx, by, "Seal Tiers", new String[]{"I: summon lasts 25s", "  (up from 15).", "II: charge fills", "  40% faster.", "III: two Portadores", "  of different arms.", "", "Higher Seals (Z,", "Black Hole) bind", "greater echoes."});
 				iconsN(g, rx + 6, by + BH - 32, new ItemStack[]{st("vestigia:seal_1"), st("vestigia:seal_2"), st("vestigia:seal_3")});
 			}
-			case 17 -> {
+			case 18 -> {
 				page(g, lx, by, "6 · Emblems", new String[]{"Emblems slot into", "the Curios 'Emblem'", "slots — up to four", "at once.", "", "Won from Incursions,", "each grants a", "distinct power.", "", "Some awaken with the", "'B' key."});
 				bearer(g, rx, by, "Twisted Emblem", "vestigia:twisted_emblem", new String[]{"Press 'B' to melt", "into shadow:", "Invisibility for 50s", "with x5 speed and", "x5 jump.", "", "Strike from the dark."});
 			}
-			case 18 -> {
+			case 19 -> {
 				bearer(g, lx, by, "Fire Emblem", "vestigia:fire_emblem", new String[]{"Immune to fire and", "lava.", "", "Double-jump, then", "hold jump: a fiery", "jetpack lifts you", "for 5 seconds.", "Cooldown 2 minutes."});
 				bearer(g, rx, by, "Aurora Emblem", "vestigia:aurora_emblem", new String[]{"Doubles every good", "effect you hold.", "", "The fog drifts slow", "blues, and you see", "creatures glow", "through walls."});
 			}
-			case 19 -> {
+			case 20 -> {
 				bearer(g, lx, by, "Golden Emblem", "vestigia:golden_emblem", new String[]{"Gold weapons (with", "the Golden Sword &", "Staff) deal triple", "damage.", "", "Gold tools mine much", "faster; the Staff's", "buffs double again."});
 				bearer(g, rx, by, "Seal Emblem", "vestigia:seal_emblem", new String[]{"Press 'B' for the", "Stellar Emblem GUI:", "", "Change weather and", "day or night.", "", "Offer a diamond", "stack for x6 damage", "over 5 minutes."});
 			}
-			case 20 -> {
+			case 21 -> {
 				aztecBg(g, bx, by);
 				aztecPage(g, lx, by, "7 · The Mexica", new String[]{"The first civili-", "zation to arrive", "after the first", "Incursion.", "", "Sun-priests of the", "old world, they", "trade in souls and", "in the favor of", "the rain-god", "Tlaloc.", "", "Learn their rites", "and grow strong."});
 				aztecPage(g, rx, by, "Offering Knife", new String[]{"The Offering Knife", "harvests souls.", "", "Right-click to cut", "yourself: if it", "kills you, +1 soul.", "", "Slay mobs with it", "for +1 soul each.", "", "Sneak + right-click", "to read your count.", "", "Reach 100 souls and", "Tlaloc grants you", "a wish."});
 			}
-			case 21 -> {
+			case 22 -> {
 				aztecBg(g, bx, by);
 				aztecPage(g, lx, by, "The Aztec Pyramid", new String[]{"Deep in jungles and", "other lands stands", "an Aztec Pyramid.", "", "Atop it wait the", "Invocation Altars", "and a lone Altar.", "", "Use an Aztec Statue", "on that Altar to", "play a sacred game.", "", "Win with no misses", "to earn 50 souls", "and an Aztec Emblem."});
-				aztecBearer(g, rx, by, "Aztec Emblem", "vestigia:aztec_emblem", new String[]{"Worn in a Curios", "Emblem slot.", "", "With the Offering", "Knife, sacrificing", "yourself or slaying", "Zombies grants x4", "souls instead of", "one.", "", "Bleed faster —", "wish sooner."});
+				aztecBearer(g, rx, by, "Aztec Emblem", "vestigia:aztec_emblem", new String[]{"Worn in a Curios", "Emblem slot.", "", "With the Offering", "Knife, sacrificing", "yourself or slaying", "Zombies grants x4", "souls instead of", "one."});
 			}
 			default -> {
 			}

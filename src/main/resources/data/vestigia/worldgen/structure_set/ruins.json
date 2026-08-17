@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "vestigia:ruins",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 52,
+    "separation": 33,
+    "salt": 1330705891
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    " a ",
+    " b "
+  ],
+  "key": {
+    "a": "#minecraft:planks",
+    "b": "minecraft:stick"
+  },
+  "result": {
+    "id": "vestigia:wooden_club",
+    "count": 1
+  }
+}

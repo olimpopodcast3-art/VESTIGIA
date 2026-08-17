@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "vestigia:golden_sword"
+    },
+    "title": {
+      "translate": "advancements.golden_night.title"
+    },
+    "description": {
+      "translate": "advancements.golden_night.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "golden_night_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "vestigia:golden_sword",
+            "count": {
+              "min": 1,
+              "max": 64
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "vestigia:broken_souls"
+}

@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "vestigia:slingshot"
+    },
+    "title": {
+      "translate": "advancements.slime_shot.title"
+    },
+    "description": {
+      "translate": "advancements.slime_shot.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "slime_shot_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "vestigia:slingshot",
+            "count": {
+              "min": 1,
+              "max": 64
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "vestigia:broken_souls"
+}

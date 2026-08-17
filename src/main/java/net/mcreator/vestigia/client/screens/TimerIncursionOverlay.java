@@ -28,8 +28,12 @@ public class TimerIncursionOverlay {
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGuiEvent.Pre event) {
-		if (!VestigiaIncursionClient.isActive())
+		Minecraft mc0 = Minecraft.getInstance();
+		if (!VestigiaIncursionClient.isActive()) {
+			if (VestigiaIncursionClient.introActive() && mc0.player != null && mc0.level != null && !mc0.options.hideGui)
+				drawIntro(event.getGuiGraphics(), mc0.font, event.getGuiGraphics().guiWidth(), event.getGuiGraphics().guiHeight(), mc0.level.getGameTime());
 			return;
+		}
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.player == null || mc.level == null || mc.options.hideGui)
 			return;
@@ -142,6 +146,34 @@ public class TimerIncursionOverlay {
 		g.fillGradient(0, h - 46, w, h, 0x00000000, vig);
 		g.fill(0, 0, 4, h, alpha(0x2A0006, 0.3F * amt));
 		g.fill(w - 4, 0, w, h, alpha(0x2A0006, 0.3F * amt));
+	}
+
+	private static void drawIntro(GuiGraphicsExtractor g, Font font, int w, int h, long gt) {
+		float pulse = 0.5F + 0.5F * (float) Math.sin(gt * 0.3);
+		int lvl = VestigiaIncursionClient.introLevel();
+		int pw = 178, ph = 40, px = w / 2 - pw / 2, py = 6;
+		g.fill(px - 2, py - 2, px + pw + 2, py + ph + 2, FRAME_DK);
+		g.fillGradient(px, py, px + pw, py + ph, PANEL_TOP, PANEL_BOT);
+		g.fill(px, py, px + pw, py + 2, blend(GOLD_DK, GOLD, pulse));
+		g.fill(px, py + ph - 2, px + pw, py + ph, GOLD_DK);
+		String title = lvl >= 2 ? "✦ TURN ON THE REALITY ✦" : "⚠ INCURSION INCOMING ⚠";
+		g.centeredText(font, title, w / 2, py + 6, blend(GOLD, GOLD_BRIGHT, pulse));
+		var pose = g.pose();
+		pose.pushMatrix();
+		pose.translate(w / 2.0F, py + 18.0F);
+		pose.scale(1.8F, 1.8F);
+		g.centeredText(font, "3:21", 0, 0, alpha(GOLD_BRIGHT, 0.55F + 0.45F * pulse));
+		pose.popMatrix();
+		int n = (int) Math.ceil(VestigiaIncursionClient.introRemaining() / 20.0);
+		if (n < 1)
+			n = 1;
+		pose.pushMatrix();
+		pose.translate(w / 2.0F, h / 2.0F - 12.0F);
+		float s = 6.0F + pulse * 0.6F;
+		pose.scale(s, s);
+		g.centeredText(font, "" + n, 0, 0, pulse > 0.5F ? GOLD_BRIGHT : WHITE);
+		pose.popMatrix();
+		g.centeredText(font, lvl >= 2 ? "Just This Time" : "The bubble is forming…", w / 2, h / 2 + 30, alpha(GOLD, 0.7F + 0.3F * pulse));
 	}
 
 	private static void drawWarnings(GuiGraphicsExtractor g, Font font, int w, int h, long gt) {

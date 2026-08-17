@@ -1,0 +1,48 @@
+{
+  "display": {
+    "icon": {
+      "id": "vestigia:golden_staff"
+    },
+    "title": {
+      "translate": "advancements.fight_with_me.title"
+    },
+    "description": {
+      "translate": "advancements.fight_with_me.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "fight_with_me_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "vestigia:uncharged_golden_staff",
+            "count": {
+              "min": 1,
+              "max": 64
+            }
+          }
+        ]
+      }
+    },
+    "fight_with_me_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "vestigia:golden_staff",
+            "count": {
+              "min": 1,
+              "max": 64
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "vestigia:broken_souls"
+}

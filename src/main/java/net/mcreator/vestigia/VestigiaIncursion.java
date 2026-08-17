@@ -22,6 +22,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -37,6 +38,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -57,9 +59,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 
+import net.mcreator.vestigia.entity.CaveManEntity;
 import net.mcreator.vestigia.entity.GladiatorEntity;
 import net.mcreator.vestigia.entity.GoldenKnightEntity;
+import net.mcreator.vestigia.entity.MexicaEntity;
+import net.mcreator.vestigia.entity.MummyEntity;
+import net.mcreator.vestigia.entity.PharaohEntity;
 import net.mcreator.vestigia.entity.PortadorEntity;
+import net.mcreator.vestigia.entity.RomanEntity;
 import net.mcreator.vestigia.entity.TheZagalEntity;
 import net.mcreator.vestigia.init.VestigiaModEntities;
 
@@ -84,6 +91,7 @@ public class VestigiaIncursion {
 	private static final double ARENA = 96.0;
 
 	private static final Map<GlobalPos, Inc> ACTIVE = new HashMap<>();
+	private static final Set<GlobalPos> WARMING = new HashSet<>();
 
 	private static class Inc {
 		int tier;
@@ -187,12 +195,93 @@ public class VestigiaIncursion {
 		if (!(lvl instanceof ServerLevel sl))
 			return;
 		GlobalPos gp = GlobalPos.of(sl.dimension(), pos.immutable());
-		if (ACTIVE.containsKey(gp)) {
+		if (ACTIVE.containsKey(gp) || WARMING.contains(gp)) {
 			event.getEntity().sendSystemMessage(Component.literal("§7An Echo Incursion is already active here"));
 			return;
 		}
 		held.shrink(1);
-		start(sl, pos, gp, sealPath);
+		warmup(sl, pos, gp, sealPath);
+	}
+
+	private static void warmup(ServerLevel sl, BlockPos pos, GlobalPos gp, String sealPath) {
+		WARMING.add(gp);
+		int level = tierOf(sealPath) >= 4 ? 2 : 1;
+		long introEnd = sl.getGameTime() + 100L;
+		broadcastIntro(sl, pos, introEnd, level);
+		sl.playSound(null, pos, SoundEvents.BEACON_ACTIVATE, SoundSource.HOSTILE, 2.2F, 0.6F);
+		for (int s = 0; s < 5; s++) {
+			final float pitch = 0.7F + s * 0.14F;
+			VestigiaMod.queueServerWork(s * 20, () -> sl.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.HOSTILE, 2.4F, pitch));
+		}
+		for (int t = 0; t <= 100; t += 2) {
+			final int tick = t;
+			VestigiaMod.queueServerWork(t, () -> warmupTick(sl, pos, level, tick));
+		}
+		if (level >= 2) {
+			VestigiaMod.queueServerWork(2, () -> setTime(sl, 23000));
+			VestigiaMod.queueServerWork(27, () -> setTime(sl, 6000));
+			VestigiaMod.queueServerWork(52, () -> setTime(sl, 12000));
+			VestigiaMod.queueServerWork(77, () -> setTime(sl, 18000));
+		}
+		VestigiaMod.queueServerWork(100, () -> {
+			WARMING.remove(gp);
+			LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, sl);
+			bolt.snapTo(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 0.0F, 0.0F);
+			bolt.setVisualOnly(true);
+			sl.addFreshEntity(bolt);
+			sl.playSound(null, pos, SoundEvents.TRIDENT_THUNDER.value(), SoundSource.HOSTILE, 3.0F, 1.0F);
+			start(sl, pos, gp, sealPath);
+		});
+	}
+
+	private static void warmupTick(ServerLevel sl, BlockPos pos, int level, int t) {
+		double cx = pos.getX() + 0.5, cy = pos.getY() + 1.0, cz = pos.getZ() + 0.5;
+		float frac = t / 100.0F;
+		double r = frac * BARRIER;
+		int pts = 44;
+		for (int i = 0; i < pts; i++) {
+			double a = Math.PI * 2 * i / pts + t * 0.05;
+			sl.sendParticles(new DustParticleOptions(0x8A5CFF, 1.5F), cx + Math.cos(a) * r, cy, cz + Math.sin(a) * r, 1, 0.0, 0.0, 0.0, 0.0);
+		}
+		sl.sendParticles(ParticleTypes.END_ROD, cx, cy + frac * 4.0, cz, 2, 0.08, 0.2, 0.08, 0.01);
+		for (int i = 0; i < 20; i++) {
+			double a = Math.PI * 2 * i / 20 + t * 0.08;
+			double h = sl.getRandom().nextDouble() * (0.5 + frac * 6.0);
+			sl.sendParticles(new DustParticleOptions(0x9B5CFF, 1.2F), cx + Math.cos(a) * BARRIER, cy + h, cz + Math.sin(a) * BARRIER, 1, 0.0, 0.0, 0.0, 0.0);
+		}
+		if (level >= 2)
+			riftTentacles(sl, cx, cy + 5.0, cz, t);
+	}
+
+	private static void riftTentacles(ServerLevel sl, double x, double y, double z, int t) {
+		for (int i = 0; i < 22; i++) {
+			double a = Math.PI * 2 * i / 22 + t * 0.2;
+			sl.sendParticles(new DustParticleOptions(0xE0A030, 1.6F), x + Math.cos(a) * 2.5, y, z + Math.sin(a) * 2.5, 1, 0.0, 0.0, 0.0, 0.0);
+			sl.sendParticles(new DustParticleOptions(0xFF6A00, 1.3F), x + Math.cos(a) * 1.7, y, z + Math.sin(a) * 1.7, 1, 0.0, 0.0, 0.0, 0.0);
+		}
+		for (int arm = 0; arm < 6; arm++) {
+			double baseA = arm * (Math.PI * 2 / 6) + t * 0.04;
+			for (double s = 0.0; s <= 3.2; s += 0.4) {
+				double wob = Math.sin(t * 0.2 + s * 2.0) * 0.7;
+				double a = baseA + wob;
+				double rr = 0.6 + s;
+				sl.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, x + Math.cos(a) * rr, y - s * 0.9, z + Math.sin(a) * rr, 1, 0.0, 0.0, 0.0, 0.01);
+			}
+		}
+		sl.sendParticles(ParticleTypes.REVERSE_PORTAL, x, y, z, 4, 0.4, 0.4, 0.4, 0.05);
+	}
+
+	private static void setTime(ServerLevel sl, int time) {
+		MinecraftServer server = sl.getServer();
+		if (server != null)
+			server.getCommands().performPrefixedCommand(server.createCommandSourceStack().withSuppressedOutput(), "time set " + time);
+	}
+
+	private static void broadcastIntro(ServerLevel sl, BlockPos pos, long introEnd, int level) {
+		IncursionIntroPayload p = new IncursionIntroPayload(introEnd, level);
+		for (Player pl : sl.getEntitiesOfClass(Player.class, arena(pos, PARTICIPATE), Player::isAlive))
+			if (pl instanceof ServerPlayer sp)
+				PacketDistributor.sendToPlayer(sp, p);
 	}
 
 	private static void start(ServerLevel sl, BlockPos pos, GlobalPos gp, String sealPath) {
@@ -260,6 +349,7 @@ public class VestigiaIncursion {
 			}
 			if (inc.tier >= 5 && inc.elapsed % 30 == 0)
 				rainTnt(sl, pos);
+				tickPharaohs(sl, pos, inc);
 			if (!inc.bossSpawned && inc.elapsed > 0 && inc.elapsed % ADD_INTERVAL == 0)
 				spawnWave(sl, pos, inc);
 			if (!inc.bossSpawned && inc.elapsed >= BOSS_ELAPSED) {
@@ -386,8 +476,21 @@ public class VestigiaIncursion {
 				spawnMob(sl, pos, inc, 1);
 		if (inc.tier >= 3)
 			spawnMob(sl, pos, inc, 2);
-		if (inc.tier >= 4)
+		if (inc.tier == 3) {
+			spawnMob(sl, pos, inc, 4);
+			spawnMob(sl, pos, inc, 7);
+		}
+		if (inc.tier >= 4) {
+			int eras = 1 + extra / 2;
+			for (int i = 0; i < eras; i++) {
+				spawnMob(sl, pos, inc, 3);
+				spawnMob(sl, pos, inc, 4);
+				spawnMob(sl, pos, inc, 5);
+				spawnMob(sl, pos, inc, 6);
+				spawnMob(sl, pos, inc, 7);
+			}
 			spawnVanilla(sl, pos, inc, sl.getRandom().nextInt(4));
+		}
 		sl.playSound(null, pos, SoundEvents.BEACON_ACTIVATE, SoundSource.HOSTILE, 2.0F, 0.7F);
 	}
 
@@ -436,7 +539,14 @@ public class VestigiaIncursion {
 				spd.setBaseValue(0.42);
 			m = z;
 		} else {
-			m = new PortadorEntity(VestigiaModEntities.PORTADOR.get(), sl);
+			m = switch (type) {
+					case 3 -> new MexicaEntity(VestigiaModEntities.MEXICA.get(), sl);
+					case 4 -> new CaveManEntity(VestigiaModEntities.CAVE_MAN.get(), sl);
+					case 5 -> new MummyEntity(VestigiaModEntities.MUMMY.get(), sl);
+					case 6 -> new PharaohEntity(VestigiaModEntities.PHARAOH.get(), sl);
+					case 7 -> new RomanEntity(VestigiaModEntities.ROMAN.get(), sl);
+					default -> new PortadorEntity(VestigiaModEntities.PORTADOR.get(), sl);
+				};
 		}
 		m.snapTo(xz[0], gy, xz[1], (float) (sl.getRandom().nextDouble() * 360.0), 0.0F);
 		m.getPersistentData().putString("vestigia_incursion", posKey(pos));
@@ -445,6 +555,43 @@ public class VestigiaIncursion {
 		sl.addFreshEntity(m);
 		inc.spawned.add(m.getUUID());
 		emerge(sl, xz[0], gy, xz[1]);
+	}
+
+	private static void tickPharaohs(ServerLevel sl, BlockPos pos, Inc inc) {
+		if (sl.getGameTime() % 20L != 0L)
+			return;
+		String key = posKey(pos);
+		long now = sl.getGameTime();
+		for (PharaohEntity ph : sl.getEntitiesOfClass(PharaohEntity.class, arena(pos, ARENA), e -> e.isAlive() && key.equals(e.getPersistentData().getStringOr("vestigia_incursion", "")))) {
+			if (now < ph.getPersistentData().getLongOr("vestigia_cast", 0L))
+				continue;
+			ph.getPersistentData().putLong("vestigia_cast", now + 140L);
+			pharaohCast(sl, pos, inc, ph);
+		}
+	}
+
+	private static void pharaohCast(ServerLevel sl, BlockPos pos, Inc inc, PharaohEntity ph) {
+		ph.swing(InteractionHand.MAIN_HAND);
+		sl.playSound(null, ph.blockPosition(), SoundEvents.EVOKER_PREPARE_SUMMON, SoundSource.HOSTILE, 1.3F, 0.9F);
+		sl.playSound(null, ph.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.HOSTILE, 1.2F, 0.8F);
+		sl.sendParticles(ParticleTypes.ENCHANT, ph.getX(), ph.getY() + 2.2, ph.getZ(), 40, 0.5, 0.6, 0.5, 0.8);
+		sl.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, ph.getX(), ph.getY() + 1.5, ph.getZ(), 12, 0.4, 0.5, 0.4, 0.02);
+		int count = 1 + sl.getRandom().nextInt(2);
+		for (int i = 0; i < count; i++) {
+			double ang = sl.getRandom().nextDouble() * Math.PI * 2;
+			double d = 2.0 + sl.getRandom().nextDouble() * 3.0;
+			double x = ph.getX() + Math.cos(ang) * d, z = ph.getZ() + Math.sin(ang) * d;
+			double gy = spawnYNear(sl, x, z, pos.getY());
+			MummyEntity mummy = new MummyEntity(VestigiaModEntities.MUMMY.get(), sl);
+			mummy.snapTo(x, gy, z, (float) (sl.getRandom().nextDouble() * 360.0), 0.0F);
+			mummy.getPersistentData().putString("vestigia_incursion", posKey(pos));
+			mummy.setPersistenceRequired();
+			mummy.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(mummy, Player.class, true));
+			sl.addFreshEntity(mummy);
+			inc.spawned.add(mummy.getUUID());
+			emerge(sl, x, gy, z);
+			sl.sendParticles(ParticleTypes.CRIT, x, gy + 0.2, z, 20, 0.3, 0.1, 0.3, 0.1);
+		}
 	}
 
 	private static void spawnVanilla(ServerLevel sl, BlockPos pos, Inc inc, int which) {
@@ -682,6 +829,21 @@ public class VestigiaIncursion {
 				(payload, ctx) -> ctx.enqueueWork(() -> net.mcreator.vestigia.client.VestigiaIncursionClient.onState(payload.active(), payload.startTime(), payload.endTime(), payload.phase(), payload.enemies())));
 		event.registrar("vestigia").playToClient(IncursionWarnPayload.TYPE, IncursionWarnPayload.CODEC,
 				(payload, ctx) -> ctx.enqueueWork(() -> net.mcreator.vestigia.client.VestigiaIncursionClient.onWarn(payload.leaving(), payload.deadline())));
+		event.registrar("vestigia").playToClient(IncursionIntroPayload.TYPE, IncursionIntroPayload.CODEC,
+				(payload, ctx) -> ctx.enqueueWork(() -> net.mcreator.vestigia.client.VestigiaIncursionClient.onIntro(payload.introEnd(), payload.level())));
+	}
+
+	public record IncursionIntroPayload(long introEnd, int level) implements CustomPacketPayload {
+		public static final CustomPacketPayload.Type<IncursionIntroPayload> TYPE = new CustomPacketPayload.Type<>(Identifier.parse("vestigia:incursion_intro"));
+		public static final StreamCodec<RegistryFriendlyByteBuf, IncursionIntroPayload> CODEC = StreamCodec.composite(
+				ByteBufCodecs.VAR_LONG, IncursionIntroPayload::introEnd,
+				ByteBufCodecs.VAR_INT, IncursionIntroPayload::level,
+				IncursionIntroPayload::new);
+
+		@Override
+		public CustomPacketPayload.Type<IncursionIntroPayload> type() {
+			return TYPE;
+		}
 	}
 
 	public record IncursionStatePayload(boolean active, long startTime, long endTime, int phase, int enemies) implements CustomPacketPayload {
